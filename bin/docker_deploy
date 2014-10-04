@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'docker_deploy/cli'
+
+DockerDeploy::CLI.start(ARGV)
