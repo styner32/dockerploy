@@ -1,0 +1,21 @@
+image_name: docker/image
+image_prefix: prefix
+docker_username: dockeruser
+image_server:
+  docker_host: tcp://test.host:4243
+  host: test.host
+  username: username
+  password: password
+  port: 1000
+staging:
+  branch: master
+  servers:
+    - host: server.host
+      username: server_user
+      password: server_pass
+      port: 2000
+      role: server_role
+      container:
+        host: container.host
+        ssh_port: 1022
+        http_port: 8080
