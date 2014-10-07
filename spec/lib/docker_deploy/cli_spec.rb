@@ -18,7 +18,15 @@ module DockerDeploy
       it 'runs docker ps in servers' do
         allow_any_instance_of(SSHClient).to receive(:command).with('docker ps | grep prefix')
         cli = described_class.new
-        cli.ps(:staging)
+        cli.ps('test')
+      end
+    end
+
+    describe '#build' do
+      it 'runs docker build' do
+        allow_any_instance_of(ShellClient).to receive(:command).with('env DOCKER_HOST=tcp://test.host:4243 docker build -t docker/image .')
+        cli = described_class.new
+        cli.build
       end
     end
   end

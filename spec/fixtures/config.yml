@@ -7,7 +7,7 @@ image_server:
   username: username
   password: password
   port: 1000
-staging:
+test:
   branch: master
   servers:
     - host: server.host
