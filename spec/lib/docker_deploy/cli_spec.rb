@@ -29,5 +29,13 @@ module DockerDeploy
         cli.build
       end
     end
+
+    describe '#push' do
+      it 'pushes the image' do
+        allow_any_instance_of(ShellClient).to receive(:command).with('env DOCKER_HOST=tcp://test.host:4243 docker push docker/image')
+        cli = described_class.new
+        cli.push
+      end
+    end
   end
 end

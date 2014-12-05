@@ -28,8 +28,13 @@ module DockerDeploy
 
     desc 'build', 'build an image'
     def build
-      command = 'env DOCKER_HOST=%s docker build -t %s .' % [@options[:image_server][:docker_host], @options[:image_name]]
-      puts command
+      command = 'env DOCKER_HOST=%s docker build -t %s .' % [@options[:docker_host], @options[:image_name]]
+      ShellClient.new.command(command)
+    end
+
+    desc 'push', 'push an image'
+    def push
+      command = 'env DOCKER_HOST=%s docker push %s' % [@options[:docker_host], @options[:image_name]]
       ShellClient.new.command(command)
     end
   end
