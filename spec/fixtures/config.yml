@@ -1,12 +1,7 @@
 image_name: docker/image
 image_prefix: prefix
 docker_username: dockeruser
-image_server:
-  docker_host: tcp://test.host:4243
-  host: test.host
-  username: username
-  password: password
-  port: 1000
+docker_host: tcp://test.host:4243
 test:
   branch: master
   servers:
