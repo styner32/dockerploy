@@ -5,5 +5,6 @@ require 'docker_deploy/ssh_client'
 require 'docker_deploy/shell_client'
 require 'docker_deploy/cli'
 
+# DockerDeploy
 module DockerDeploy
 end

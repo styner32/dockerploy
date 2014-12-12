@@ -4,6 +4,10 @@ docker_host: tcp://test.host:4243
 application_name: app
 test:
   branch: master
+  volumes:
+    - volume:
+        host: /opt/app/shared/log
+        guest: /var/log
   servers:
     - host: server.host
       username: server_user

@@ -2,6 +2,6 @@
 
 require 'pathname'
 bin_file = Pathname.new(__FILE__).realpath
-$:.unshift File.expand_path("../../lib", bin_file)
+$LOAD_PATH.unshift File.expand_path('../../lib', bin_file)
 require 'docker_deploy/cli'
 DockerDeploy::CLI.start(ARGV)

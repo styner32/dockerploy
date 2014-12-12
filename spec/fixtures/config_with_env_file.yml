@@ -4,6 +4,7 @@ docker_host: tcp://test.host:4243
 application_name: app
 test:
   branch: master
+  env_file: spec/fixtures/test.yml
   servers:
     - host: server.host
       username: server_user
