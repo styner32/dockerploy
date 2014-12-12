@@ -21,7 +21,7 @@ module DockerDeploy
       if server_configs
         server_configs.each do |config|
           ssh_client = SSHClient.new(config[:host], config[:username], config[:password], config[:port])
-          ssh_client.command('docker ps | grep %s' % @options[:image_prefix])
+          ssh_client.command('docker ps | grep %s' % @options[:application_name])
         end
       end
     end
@@ -45,6 +45,17 @@ module DockerDeploy
         server_configs.each do |config|
           ssh_client = SSHClient.new(config[:host], config[:username], config[:password], config[:port])
           ssh_client.command('docker pull %s' % @options[:image_name])
+        end
+      end
+    end
+
+    desc 'deploy', 'deploy an application'
+    def deploy(environment)
+      server_configs = @options[environment.to_sym][:servers]
+      if server_configs
+        server_configs.each do |config|
+          ssh_client = SSHClient.new(config[:host], config[:username], config[:password], config[:port])
+          ssh_client.command('docker run -d --name %s_%s --hostname %s %s' % [@options[:application_name], config[:container][:http_port], @options[:application_name], @options[:image_name]])
         end
       end
     end

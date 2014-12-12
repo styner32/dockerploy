@@ -16,7 +16,7 @@ module DockerDeploy
 
     describe '#ps' do
       it 'runs docker ps in servers' do
-        allow_any_instance_of(SSHClient).to receive(:command).with('docker ps | grep prefix')
+        expect_any_instance_of(SSHClient).to receive(:command).with('docker ps | grep app')
         cli = described_class.new
         cli.ps('test')
       end
@@ -24,7 +24,7 @@ module DockerDeploy
 
     describe '#build' do
       it 'runs docker build' do
-        allow_any_instance_of(ShellClient).to receive(:command).with('env DOCKER_HOST=tcp://test.host:4243 docker build -t docker/image .')
+        expect_any_instance_of(ShellClient).to receive(:command).with('env DOCKER_HOST=tcp://test.host:4243 docker build -t docker/image .')
         cli = described_class.new
         cli.build
       end
@@ -32,7 +32,7 @@ module DockerDeploy
 
     describe '#push' do
       it 'pushes the image' do
-        allow_any_instance_of(ShellClient).to receive(:command).with('env DOCKER_HOST=tcp://test.host:4243 docker push docker/image')
+        expect_any_instance_of(ShellClient).to receive(:command).with('env DOCKER_HOST=tcp://test.host:4243 docker push docker/image')
         cli = described_class.new
         cli.push
       end
@@ -40,9 +40,17 @@ module DockerDeploy
 
     describe '#pull' do
       it 'pulls the image' do
-        allow_any_instance_of(SSHClient).to receive(:command).with('docker pull docker/image')
+        expect_any_instance_of(SSHClient).to receive(:command).with('docker pull docker/image')
         cli = described_class.new
         cli.pull('test')
+      end
+    end
+
+    describe '#deploy' do
+      it 'create a container on server' do
+        expect_any_instance_of(SSHClient).to receive(:command).with('docker run -d --name app_8080 --hostname app docker/image')
+        cli = described_class.new
+        cli.deploy('test')
       end
     end
   end

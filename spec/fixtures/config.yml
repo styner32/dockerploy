@@ -1,7 +1,7 @@
 image_name: docker/image
-image_prefix: prefix
 docker_username: dockeruser
 docker_host: tcp://test.host:4243
+application_name: app
 test:
   branch: master
   servers:
