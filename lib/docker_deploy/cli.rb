@@ -37,5 +37,16 @@ module DockerDeploy
       command = 'env DOCKER_HOST=%s docker push %s' % [@options[:docker_host], @options[:image_name]]
       ShellClient.new.command(command)
     end
+
+    desc 'pull', 'pull an image'
+    def pull(environment)
+      server_configs = @options[environment.to_sym][:servers]
+      if server_configs
+        server_configs.each do |config|
+          ssh_client = SSHClient.new(config[:host], config[:username], config[:password], config[:port])
+          ssh_client.command('docker pull %s' % @options[:image_name])
+        end
+      end
+    end
   end
 end

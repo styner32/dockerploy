@@ -37,5 +37,13 @@ module DockerDeploy
         cli.push
       end
     end
+
+    describe '#pull' do
+      it 'pulls the image' do
+        allow_any_instance_of(SSHClient).to receive(:command).with('docker pull docker/image')
+        cli = described_class.new
+        cli.pull('test')
+      end
+    end
   end
 end
